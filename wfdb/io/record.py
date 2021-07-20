@@ -412,11 +412,6 @@ class BaseRecord(object):
         if physical is True and return_res == 8:
             raise ValueError("return_res must be one of the following when physical is True: 64, 32, 16")
 
-        # Cannot expand multiple samples/frame for multi-segment records
-        if isinstance(self, MultiRecord):
-            if smooth_frames is False:
-                raise ValueError('This package version cannot expand all samples when reading multi-segment records. Must enable frame smoothing.')
-
 
     def _adjust_datetime(self, sampfrom):
         """
@@ -3678,7 +3673,7 @@ def rdrecord(record_name, sampfrom=0, sampto=None, channels=None,
                     os.path.join(dir_name, record.seg_name[seg_num]),
                     sampfrom=seg_ranges[i][0], sampto=seg_ranges[i][1],
                     channels=seg_channels[i], physical=physical, pn_dir=pn_dir,
-                    return_res=return_res)
+                    smooth_frames=smooth_frames, return_res=return_res)
 
         # Arrange the fields of the layout specification segment, and
         # the overall object, to reflect user input.
@@ -3689,6 +3684,7 @@ def rdrecord(record_name, sampfrom=0, sampto=None, channels=None,
         # Convert object into a single segment Record object
         if m2s:
             record = record.multi_to_single(physical=physical,
+                                            expanded=(not smooth_frames),
                                             return_res=return_res)
 
     # Perform dtype conversion if necessary
