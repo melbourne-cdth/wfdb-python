@@ -1125,9 +1125,12 @@ class MultiRecord(BaseRecord, _header.MultiHeaderMixin):
             n_sig = len(signal_names)
 
             # This will be the field dictionary to copy over.
-            reference_fields = {'fmt':n_sig*[None], 'adc_gain':n_sig*[None],
-                                'baseline':n_sig*[None],
-                                'units':n_sig*[None]}
+            reference_fields = {
+                'fmt': n_sig * [None],
+                'adc_gain': n_sig * [None],
+                'baseline': n_sig * [None],
+                'units': n_sig * [None],
+            }
 
             # For physical signals, mismatched fields will not be copied
             # over. For digital, mismatches will cause an exception.
