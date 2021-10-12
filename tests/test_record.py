@@ -656,7 +656,7 @@ class TestMultiRecord(unittest.TestCase):
 
     def test_multi_variable_c(self):
         """
-        Multi-segment, variable layout, entire signal, physical
+        Multi-segment, variable layout, entire signal, physical, expanded
 
         The reference signal creation cannot be made with rdsamp
         directly because the WFDB c package (10.5.24) applies the single
@@ -678,8 +678,14 @@ class TestMultiRecord(unittest.TestCase):
         - Last 2 segments have same 3 channels, length 97500
 
         """
-        record = wfdb.rdrecord('sample-data/multi-segment/s25047/s25047-2704-05-04-10-44')
-        sig_round = np.round(record.p_signal, decimals=8)
+        record = wfdb.rdrecord(
+            'sample-data/multi-segment/s25047/s25047-2704-05-04-10-44',
+            smooth_frames=False)
+
+        # convert expanded to uniform array and round to 8 digits
+        sig_round = np.zeros((record.sig_len, record.n_sig))
+        for i in range(record.n_sig):
+            sig_round[:, i] = np.round(record.e_p_signal[i], decimals=8)
 
         sig_target_a = np.full((25740,3), np.nan)
         sig_target_b = np.concatenate(
