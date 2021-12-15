@@ -7,5 +7,6 @@ from wfdb.io.annotation import (Annotation, rdann, wrann, show_ann_labels,
                                 rdedfann, mrgann)
 from wfdb.io.download import get_dbs, get_record_list, dl_files, set_db_index_url
 from wfdb.plot.plot import plot_items, plot_wfdb, plot_all_records
+from wfdb.plot.plot_plotly import plot_items_pl, plot_wfdb_pl, plot_all_records_pl
 
 from wfdb.version import __version__
