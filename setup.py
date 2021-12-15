@@ -61,6 +61,7 @@ setup(
         'pandas>=0.17.0',
         'requests>=2.8.1',
         'scipy>=0.17.0',
+        'plotly>=5.4.0',
     ],
 
     # List additional groups of dependencies here (e.g. development
