@@ -359,8 +359,12 @@ def plot_annotation_pl(ann_samp, n_annot, ann_sym, signal, n_sig, fs, time_units
 
             # ! Plot the annotation symbols if any mayby change th mode to markers + text
             if ann_sym is not None and ann_sym[ch] is not None:
-                for i, s in enumerate(ann_sym[ch]):
-                    fig['layout']['annotations'][ch].update(text=s, ) #(ann_samp[ch][i] / downsample_factor,y[i]) -- check
+                #print(ann_sym[ch])
+                #fig['layout']['annotations'][ch].update(text=ann_sym[ch], )
+                fig.add_trace(go.Scatter(mode="markers+text", x=ann_samp[ch] / downsample_factor, y = y, showlegend=False, text=ann_sym[ch], marker=dict(color='LightSkyBlue', line=dict(color='MediumPurple'), symbol='x')))
+                #for i, s in enumerate(ann_sym[ch]):
+                    #print(i, s, len(ann_sym[ch]))
+                    #fig['layout']['annotations'][ch].update(text=ann_sym[ch], ) #(ann_samp[ch][i] / downsample_factor,y[i]) -- check
 
 
 def plot_ecg_grids_pl(ecg_grids, fs, units, time_units, fig,x_s_min,x_s_max,y_s_min,y_s_max):
